@@ -9,8 +9,6 @@
 #include "ArxTypeTraits.h"
 
 static constexpr const char OLED_ADDRESS = 0x3C; //0x78;
-static constexpr const size_t OLED_WIDTH = 128;
-static constexpr const size_t OLED_HEIGHT = 64;
 
 //  -----------------------------------------------
 
@@ -49,18 +47,21 @@ public:
 	void display(std::function<void()> drawing_function);
 
 	void show_menu();
-	void show_graph(const int *arr, size_t len, size_t start);
 
 	void test(); 
 
 	void print_column(size_t column, const char *buf);
 
 	void draw_hline(size_t column); 
+	void draw_hbar(int x, int y, int w);
+
 	void print_menu(size_t column);
 	void print_app_msg(size_t column);
 
-	static constexpr size_t TEXT_HEIGHT = 8;
-	static constexpr size_t TEXT_WIDTH = 6;
+	static constexpr const size_t TEXT_HEIGHT = 8;
+	static constexpr const size_t TEXT_WIDTH = 6;
+	static constexpr const size_t OLED_WIDTH = 128;
+	static constexpr const size_t OLED_HEIGHT = 64;
 
 private:
 	char menu_buf[TMPLEN];
