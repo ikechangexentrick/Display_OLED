@@ -1,0 +1,25 @@
+diff -uprN Adafruit_SSD1306_org/Adafruit_SSD1306.cpp Adafruit_SSD1306/Adafruit_SSD1306.cpp
+--- Adafruit_SSD1306_org/Adafruit_SSD1306.cpp	2022-05-11 11:52:21.000000000 +0900
++++ Adafruit_SSD1306/Adafruit_SSD1306.cpp	2022-05-10 07:49:00.000000000 +0900
+@@ -40,6 +40,8 @@
+ #include <avr/pgmspace.h>
+ #elif defined(ESP8266) || defined(ESP32)
+ #include <pgmspace.h>
++#elif defined(ARDUINO_ARCH_MBED_RP2040) || defined(ARDUINO_ARCH_RP2040)
++#include <avr/pgmspace.h>
+ #else
+ #define pgm_read_byte(addr)                                                    \
+   (*(const unsigned char *)(addr)) ///< PROGMEM workaround for non-AVR
+@@ -547,8 +549,10 @@ bool Adafruit_SSD1306::begin(uint8_t vcs
+ 
+   static const uint8_t PROGMEM init3[] = {SSD1306_MEMORYMODE, // 0x20
+                                           0x00, // 0x0 act like ks0108
+-                                          SSD1306_SEGREMAP | 0x1,
+-                                          SSD1306_COMSCANDEC
++                                          //SSD1306_SEGREMAP | 0x1,
++                                          //SSD1306_COMSCANDEC
++                                          SSD1306_SEGREMAP | 0x0,
++                                          SSD1306_COMSCANINC
+ 	};
+   ssd1306_commandList(init3, sizeof(init3));
+ 
